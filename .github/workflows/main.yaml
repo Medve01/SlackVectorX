@@ -1,0 +1,27 @@
+name: Build and Push Docker image
+
+on:
+  push:
+    branches:
+      - main  # Replace with your branch name, if not 'main'
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
+
+    - name: Login to DockerHub
+      uses: docker/login-action@v1
+      with:
+        username: ${{ secrets.DOCKER_HUB_USERNAME }}
+        password: ${{ secrets.DOCKER_HUB_ACCESS_TOKEN }}
+
+    - name: Build and push Docker image
+      uses: docker/build-push-action@v2
+      with:
+        context: .
+        push: true
+        tags: medvjedinamoru/slackvectorx:latest  # Replace with your Docker Hub username and repository name
