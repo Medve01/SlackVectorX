@@ -27,6 +27,5 @@ tfplan
 # Ignore Terraform local .terraform directory
 .terraform/
 .terraform.lock.hcl
-slackvectorx/config.json
 .env
 slackvectorx/chatbot.pkl

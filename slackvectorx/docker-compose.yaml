@@ -1,11 +1,9 @@
 version: "3.8"
 services:
   app:
-    build:
-      context: .
-      dockerfile: Dockerfile
+    image: medvjedinamoru/slackvectorx:latest
     volumes:
-      - .:/app
-    command: python main.py
+      - /data/slackvectorx:/data
+    command: sh -c "cd /app/slackvectorx && python main.py"
     environment:
       - PYTHONUNBUFFERED=1
