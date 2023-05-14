@@ -2,13 +2,15 @@ import os
 import json
 import dotenv
 
+dotenv.load_dotenv()
+
 class Config:
     def __init__(self, filename="config.json"):
-        data_dir = dotenv.get_key('.env', 'DATA_DIR')
-        openai_api_key = dotenv.get_key('.env', 'OPENAI_API_KEY')
-        slack_bot_token = dotenv.get_key('.env', 'SLACK_BOT_TOKEN')
-        slack_app_token = dotenv.get_key('.env', 'SLACK_APP_TOKEN')
-        slack_signing_secret = dotenv.get_key('.env', 'SLACK_SIGNING_SECRET')
+        data_dir = os.getenv('DATA_DIR')
+        openai_api_key = os.getenv( 'OPENAI_API_KEY')
+        slack_bot_token = os.getenv('SLACK_BOT_TOKEN')
+        slack_app_token = os.getenv('SLACK_APP_TOKEN')
+        slack_signing_secret = os.getenv('SLACK_SIGNING_SECRET')
         try:
             with open(filename) as f:
                 self.config = json.load(f)
