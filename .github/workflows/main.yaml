@@ -41,7 +41,7 @@ jobs:
       with:
         context: .
         push: true
-        tags: your-dockerhub-username/your-repository:${{ steps.bump_version.outputs.new_tag }}  # Replace with your Docker Hub username and repository name
+        tags: ${{ secrets.DOCKER_HUB_USERNAME }}/slackvectorx:${{ steps.bump_version.outputs.new_tag }}
 
     - name: Create Release
       id: create_release
