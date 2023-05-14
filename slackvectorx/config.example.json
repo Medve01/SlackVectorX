@@ -1,0 +1,11 @@
+{
+    "SLACK_BOT_TOKEN": "",
+    "SLACK_APP_TOKEN": "",
+    "SLACK_SIGNING_SECRET": "",
+    "OPENAI_API_KEY": "",
+    "OPENAI_MODEL": "gpt-3.5-turbo",
+    "GPT_SYSTEM_PROMPT": "You're chatting with a user in Slack. You're name is RoboBear. Your responses must be short, to fit slack-style communication.",
+    "DATA_BACKEND": "pickledb",
+    "DATABASE": "chatbot.pkl",
+    "DATA_DIR": "/data"
+}
