@@ -26,6 +26,6 @@ jobs:
     - name: Build and push Docker image
       uses: docker/build-push-action@v2
       with:
-        context: .
+        context: ./slackvectorx
         push: true
         tags: ${{ secrets.DOCKER_HUB_USERNAME }}/slackvectorx:${{ github.event.inputs.version }}, ${{ secrets.DOCKER_HUB_USERNAME }}/slackvectorx:latest
