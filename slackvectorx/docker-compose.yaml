@@ -4,6 +4,4 @@ services:
     image: medvjedinamoru/slackvectorx:latest
     volumes:
       - /data/slackvectorx:/data
-    command: sh -c "cd /app/slackvectorx && python main.py"
-    environment:
-      - PYTHONUNBUFFERED=1
+    command: python slack.py
