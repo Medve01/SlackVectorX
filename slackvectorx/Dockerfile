@@ -1,5 +1,5 @@
 # Use an official Python runtime as a parent image
-FROM python:slim-bullseye
+FROM python:alpine
 
 # Set the working directory in the container to /app
 WORKDIR /app
@@ -15,7 +15,7 @@ RUN poetry config virtualenvs.create false \
   && poetry install --no-interaction --no-ansi
 
 # Create and use a new user
-RUN useradd -ms /bin/bash slackvectorx
+RUN adduser -D slackvectorx
 USER  slackvectorx
 
 EXPOSE 8080
@@ -24,4 +24,4 @@ HEALTHCHECK --interval=30s --timeout=3s CMD python3 -c 'import sys, urllib.reque
 
 
 # Run the command to start your application
-CMD ["python", "main.py"]
+CMD ["python", "slack.py"]
