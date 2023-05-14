@@ -28,4 +28,4 @@ tfplan
 .terraform/
 .terraform.lock.hcl
 .env
-slackvectorx/chatbot.pkl
+**/chatbot.pkl

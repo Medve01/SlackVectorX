@@ -1,4 +1,3 @@
-import os
 import data_backend
 from gpt import generate_response
 from config import Config
@@ -10,16 +9,12 @@ config = Config()
 app = App(token=config.get("SLACK_BOT_TOKEN"), signing_secret=config.get("SLACK_SIGNING_SECRET"))
 client = WebClient(token=config.get("SLACK_BOT_TOKEN"))
 
-# Replace CHANNEL_ID with the ID of the specific channel you want the bot to respond in
-SPECIFIC_CHANNEL_ID = "C0577KX8Z7Z"
-
-# @app.message("hello")
 @app.event("message")
 def handle_message(body, say):
     print("hit!")
     message = body['event']
     channel_id = message["channel"]
-    user = message["user"]
+    user_id = message["user"]
     ts = message["ts"]
     if 'thread_ts' in message:
         ts = message["thread_ts"]
@@ -30,13 +25,18 @@ def handle_message(body, say):
         # check if we already have something stored with this ts
         messages = data_backend.get(ts)
         if messages:
-            if messages['user'] != user:
+            if messages['user_id'] != user_id:
                 return
             messages['conversation'].append({'role': 'user', 'content': text})
         else:
-            messages = {'user': user, 'conversation': [{'role': 'user', 'content': text}]}
+            # get slack name of the user
+            user_info_response = client.users_info(user=user_id)
+            user_info = user_info_response['user']
+            user_name = user_info['real_name']
+
+            messages = {'user_id': user_id, 'user_name': user_name, 'conversation': [{'role': 'user', 'content': text}]}
         try:
-            response = generate_response(user, messages)
+            response = generate_response(messages)
             messages['conversation'].append({'role': 'assistant', 'content': response})
             data_backend.set(ts, messages)
         except Exception as e:
