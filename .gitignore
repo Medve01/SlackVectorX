@@ -28,3 +28,5 @@ tfplan
 .terraform/
 .terraform.lock.hcl
 slackvectorx/config.json
+.env
+slackvectorx/chatbot.pkl

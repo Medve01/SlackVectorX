@@ -7,6 +7,12 @@ WORKDIR /app
 # Add current directory code to working directory
 COPY . /app/
 
+# install git
+RUN apt-get update && apt-get install -y git
+
+# clone repository
+RUN git clone https://github.com/Medve01/SlackVectorX.git .
+
 # Install poetry
 RUN pip install poetry
 
