@@ -13,8 +13,6 @@ jobs:
     runs-on: ubuntu-latest
     permissions:
       contents: write
-      packages: read
-      metadata: read
 
     steps:
     - name: Checkout code
