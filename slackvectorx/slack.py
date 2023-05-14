@@ -1,10 +1,13 @@
 import data_backend
 from gpt import generate_response
+from healthcheck import run_healthcheck_server
 from config import Config
 from slack_sdk import WebClient
 from slack_sdk.errors import SlackApiError
 from slack_bolt import App
 from slack_bolt.adapter.socket_mode import SocketModeHandler
+from threading import Thread
+
 config = Config()
 app = App(token=config.get("SLACK_BOT_TOKEN"), signing_secret=config.get("SLACK_SIGNING_SECRET"))
 client = WebClient(token=config.get("SLACK_BOT_TOKEN"))
@@ -107,7 +110,12 @@ def error_handler(error):
     print("Error: {}".format(error))
 
 if __name__ == "__main__":
+    # Start the health check server in a separate thread
+    health_check_port = 8080
+    t = Thread(target=run_healthcheck_server, args=(health_check_port,))
+    t.start()
+
+    #Start slack listener
     slack_app_token = config.get("SLACK_APP_TOKEN")
     handler = SocketModeHandler(app, slack_app_token)
     handler.start()
-    # app.start(port=int(os.environ.get("PORT", 5556)))
